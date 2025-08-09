@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 25%, 7.8431%);
+  --card: hsl(180, 6.6667%, 97.0588%);
+  --card-foreground: hsl(210, 25%, 7.8431%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(210, 25%, 7.8431%);
+  --primary: hsl(203.8863, 88.2845%, 53.1373%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(210, 25%, 7.8431%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(240, 1.9608%, 90%);
+  --muted-foreground: hsl(210, 25%, 7.8431%);
+  --accent: hsl(211.5789, 51.3514%, 92.7451%);
+  --accent-foreground: hsl(203.8863, 88.2845%, 53.1373%);
+  --destructive: hsl(356.3033, 90.5579%, 54.3137%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(201.4286, 30.4348%, 90.9804%);
+  --input: hsl(200, 23.0769%, 97.4510%);
+  --ring: hsl(202.8169, 89.1213%, 53.1373%);
+  --chart-1: hsl(203.8863, 88.2845%, 53.1373%);
+  --chart-2: hsl(159.7826, 100%, 36.0784%);
+  --chart-3: hsl(42.0290, 92.8251%, 56.2745%);
+  --chart-4: hsl(147.1429, 78.5047%, 41.9608%);
+  --chart-5: hsl(341.4894, 75.2000%, 50.9804%);
+  --sidebar: hsl(180, 6.6667%, 97.0588%);
+  --sidebar-foreground: hsl(210, 25%, 7.8431%);
+  --sidebar-primary: hsl(203.8863, 88.2845%, 53.1373%);
+  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+  --sidebar-accent: hsl(211.5789, 51.3514%, 92.7451%);
+  --sidebar-accent-foreground: hsl(203.8863, 88.2845%, 53.1373%);
+  --sidebar-border: hsl(205.0000, 25.0000%, 90.5882%);
+  --sidebar-ring: hsl(202.8169, 89.1213%, 53.1373%);
+  --font-sans: Open Sans, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Menlo, monospace;
+  --radius: 1.3rem;
+  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-xs: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-sm: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 1px 2px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 1px 2px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-md: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 2px 4px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-lg: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 4px 6px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-xl: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 8px 10px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(200, 6.6667%, 91.1765%);
+  --card: hsl(228, 9.8039%, 10%);
+  --card-foreground: hsl(0, 0%, 85.0980%);
+  --popover: hsl(0, 0%, 0%);
+  --popover-foreground: hsl(200, 6.6667%, 91.1765%);
+  --primary: hsl(203.7736, 87.6033%, 52.5490%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(195.0000, 15.3846%, 94.9020%);
+  --secondary-foreground: hsl(210, 25%, 7.8431%);
+  --muted: hsl(0, 0%, 9.4118%);
+  --muted-foreground: hsl(210, 3.3898%, 46.2745%);
+  --accent: hsl(205.7143, 70%, 7.8431%);
+  --accent-foreground: hsl(203.7736, 87.6033%, 52.5490%);
+  --destructive: hsl(356.3033, 90.5579%, 54.3137%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(210, 5.2632%, 14.9020%);
+  --input: hsl(207.6923, 27.6596%, 18.4314%);
+  --ring: hsl(202.8169, 89.1213%, 53.1373%);
+  --chart-1: hsl(203.8863, 88.2845%, 53.1373%);
+  --chart-2: hsl(159.7826, 100%, 36.0784%);
+  --chart-3: hsl(42.0290, 92.8251%, 56.2745%);
+  --chart-4: hsl(147.1429, 78.5047%, 41.9608%);
+  --chart-5: hsl(341.4894, 75.2000%, 50.9804%);
+  --sidebar: hsl(228, 9.8039%, 10%);
+  --sidebar-foreground: hsl(0, 0%, 85.0980%);
+  --sidebar-primary: hsl(202.8169, 89.1213%, 53.1373%);
+  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+  --sidebar-accent: hsl(205.7143, 70%, 7.8431%);
+  --sidebar-accent-foreground: hsl(203.7736, 87.6033%, 52.5490%);
+  --sidebar-border: hsl(205.7143, 15.7895%, 26.0784%);
+  --sidebar-ring: hsl(202.8169, 89.1213%, 53.1373%);
+  --font-sans: Open Sans, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Menlo, monospace;
+  --radius: 1.3rem;
+  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-xs: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-sm: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 1px 2px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 1px 2px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-md: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 2px 4px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-lg: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 4px 6px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-xl: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00), 0px 8px 10px -1px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169, 89.1213%, 53.1373%, 0.00);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Touch-friendly styles for tablet interface */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.large-touch-target {
+  min-height: 56px;
+}
+
+/* Custom primary color support with gradients */
+[style*="--primary"] {
+  --primary-rgb: 25, 118, 210;
+}
+
+[style*="--primary"] .bg-primary {
+  background: linear-gradient(135deg, var(--primary), #1565C0) !important;
+}
+
+[style*="--primary"] .text-primary {
+  color: var(--primary) !important;
+}
+
+[style*="--primary"] .border-primary {
+  border-color: var(--primary) !important;
+}
+
+[style*="--primary"] .hover\:bg-primary:hover {
+  background: linear-gradient(135deg, #1565C0, var(--primary)) !important;
+}
+
+/* Enhanced gradient header styling */
+[style*="--primary"] .gradient-header {
+  background: linear-gradient(135deg, var(--primary), #1565C0, #42A5F5) !important;
+}
+
+[style*="--primary"] .gradient-primary {
+  background: linear-gradient(135deg, var(--primary), #1565C0) !important;
+}
+
+/* Force gradient headers to work regardless of primary color setting */
+.gradient-header {
+  background: linear-gradient(135deg, #1976D2, #1565C0, #42A5F5) !important;
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, #1976D2, #1565C0) !important;
+}
+
+/* Gradient backgrounds with fallbacks */
+.gradient-primary {
+  background: linear-gradient(135deg, #1976D2, #1565C0);
+  background: linear-gradient(135deg, var(--primary, #1976D2), #1565C0);
+}
+
+.gradient-header {
+  background: linear-gradient(135deg, #1976D2, #1565C0, #42A5F5);
+  background: linear-gradient(135deg, var(--primary, #1976D2), #1565C0, #42A5F5);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #4CAF50, #66BB6A);
+}
+
+.gradient-card {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+}
+
+/* Animation for success message */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.submit-success {
+  animation: slideInUp 0.5s ease;
+}
+
+/* Language toggle styling */
+.language-toggle {
+  transition: all 0.3s ease;
+}
+
+/* Form section transitions */
+.form-section {
+  transition: opacity 0.3s ease;
+}
+
+/* Enhanced input styling with borders and placeholder colors - Ultra specific selectors */
+.visitor-form input,
+.visitor-form textarea,
+input[class*="border"],
+textarea[class*="border"],
+input[class*="h-10"],
+input[class*="h-12"],
+input[class*="h-14"],
+textarea[class*="min-h-"],
+form input:not([type="submit"]):not([type="button"]),
+form textarea {
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  transition: all 0.3s ease !important;
+  background: linear-gradient(135deg, #ffffff, #fafbfc) !important;
+}
+
+.visitor-form input:focus,
+.visitor-form textarea:focus,
+input[class*="border"]:focus,
+textarea[class*="border"]:focus,
+input[class*="h-10"]:focus,
+input[class*="h-12"]:focus,
+input[class*="h-14"]:focus,
+textarea[class*="min-h-"]:focus,
+form input:not([type="submit"]):not([type="button"]):focus,
+form textarea:focus {
+  border-color: var(--primary, #1976D2) !important;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1) !important;
+  background: #ffffff !important;
+  outline: none !important;
+}
+
+/* Lighter placeholder text - Ultra specific */
+.visitor-form input::placeholder,
+.visitor-form textarea::placeholder,
+input[class*="border"]::placeholder,
+textarea[class*="border"]::placeholder,
+form input::placeholder,
+form textarea::placeholder {
+  color: #94a3b8 !important;
+  font-weight: 300 !important;
+  opacity: 0.8 !important;
+}
+
+/* Select components styling - Ultra specific */
+button[role="combobox"],
+[data-radix-select-trigger],
+.visitor-form button[data-state] {
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, #ffffff, #fafbfc) !important;
+  transition: all 0.3s ease !important;
+}
+
+button[role="combobox"]:focus,
+[data-radix-select-trigger]:focus,
+.visitor-form button[data-state]:focus {
+  border-color: var(--primary, #1976D2) !important;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1) !important;
+}
+
+/* Responsive improvements for tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  .large-touch-target {
+    min-height: 60px;
+  }
+  
+  /* Increase font sizes on tablet */
+  input, textarea, select {
+    font-size: 18px;
+  }
+  
+  button {
+    font-size: 16px;
+  }
+}
+
+/* High contrast support for better accessibility */
+@media (prefers-contrast: high) {
+  :root {
+    --primary: hsl(203.8863, 100%, 40%);
+    --border: hsl(201.4286, 30.4348%, 80%);
+  }
+}
