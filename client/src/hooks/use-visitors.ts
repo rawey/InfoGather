@@ -12,12 +12,20 @@ export function useCreateVisitor() {
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: async (visitor: InsertVisitor) => {
-      const response = await apiRequest('POST', '/api/visitors', visitor);
-      return response.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/visitors'] });
-    },
-  });
+  mutationFn: async (visitor: InsertVisitor) => {
+    const response = await apiRequest('POST', '/api/visitors', visitor);
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('API error response:', response.status, text);
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    return response.json();
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['/api/visitors'] });
+  },
+});
+
 }

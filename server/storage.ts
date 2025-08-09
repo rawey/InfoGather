@@ -8,7 +8,7 @@ import {
   type ChurchSettings,
   type InsertChurchSettings
 } from "@shared/schema";
-import { db } from "./db";
+// import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
 import { randomUUID } from "crypto";
 import { FirebaseStorage } from "./firebase-storage";
