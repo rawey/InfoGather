@@ -12,7 +12,6 @@ const db = admin.firestore();
 
 export const handler: Handler = async (event) => {
   try {
-    // If GET → return visitor data
     if (event.httpMethod === "GET") {
       const snapshot = await db.collection("visitors").get();
       const visitors = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -22,7 +21,6 @@ export const handler: Handler = async (event) => {
       };
     }
 
-    // If POST → save new visitor
     if (event.httpMethod === "POST") {
       const body = JSON.parse(event.body || "{}");
       await db.collection("visitors").add(body);
