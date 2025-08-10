@@ -1,23 +1,38 @@
 import type { Handler } from "@netlify/functions";
 import admin from "firebase-admin";
 
-// Only initialize once (Netlify cold start)
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!))
-  });
+// 🔒 Safe Firebase Initialization
+let db: FirebaseFirestore.Firestore;
+
+try {
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(
+        JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!)
+      ),
+    });
+  }
+  db = admin.firestore();
+} catch (initError) {
+  console.error("Firebase init error:", initError);
 }
 
-const db = admin.firestore();
-
+// 🚀 Main Handler
 export const handler: Handler = async (event) => {
   try {
+    if (!db) {
+      return {
+        statusCode: 500,
+        body: "Firebase initialization failed",
+      };
+    }
+
     if (event.httpMethod === "GET") {
       const snapshot = await db.collection("visitors").get();
       const visitors = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       return {
         statusCode: 200,
-        body: JSON.stringify(visitors)
+        body: JSON.stringify(visitors),
       };
     }
 
@@ -26,12 +41,13 @@ export const handler: Handler = async (event) => {
       await db.collection("visitors").add(body);
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: "Visitor added" })
+        body: JSON.stringify({ message: "Visitor added" }),
       };
     }
 
     return { statusCode: 405, body: "Method not allowed" };
   } catch (err: any) {
+    console.error("Function error:", err);
     return { statusCode: 500, body: err.message };
   }
 };

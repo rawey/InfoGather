@@ -1,17 +1,33 @@
 import type { Handler } from "@netlify/functions";
 import admin from "firebase-admin";
 
-// Initialize Firebase Admin once (Netlify cold start)
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!)),
-  });
+// 🔒 Safe Firebase Initialization
+let db: FirebaseFirestore.Firestore;
+
+try {
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(
+        JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!)
+      ),
+    });
+  }
+  db = admin.firestore();
+} catch (initError) {
+  console.error("Firebase init error:", initError);
 }
 
-const db = admin.firestore();
-
+// 🚀 Main Handler
 export const handler: Handler = async (event) => {
   try {
+    if (!db) {
+      console.error("Firestore not initialized");
+      return {
+        statusCode: 500,
+        body: "Firebase initialization failed",
+      };
+    }
+
     console.log("HTTP Method:", event.httpMethod);
     console.log("Raw Body:", event.body);
 
