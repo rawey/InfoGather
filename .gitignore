@@ -6,4 +6,3 @@ vite.config.ts.*
 *.tar.gz
 # Local Netlify folder
 .netlify
-firebase/serviceAccount.json

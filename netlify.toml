@@ -5,6 +5,7 @@
 
 [functions]
   node_bundler = "esbuild"
+  included_files = ["firebase/serviceAccount.json"]
 
 [[redirects]]
   from = "/api/*"
