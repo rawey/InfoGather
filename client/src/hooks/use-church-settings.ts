@@ -13,7 +13,7 @@ export function useUpdateChurchSettings() {
   
   return useMutation({
     mutationFn: async (settings: InsertChurchSettings) => {
-      const response = await apiRequest('POST', '/api/church-settings', settings);
+      const response = await apiRequest('POST', '/.netlify/functions/church-settings', settings);
       return response.json();
     },
     onSuccess: () => {

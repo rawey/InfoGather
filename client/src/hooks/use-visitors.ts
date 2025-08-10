@@ -13,7 +13,7 @@ export function useCreateVisitor() {
   
   return useMutation({
   mutationFn: async (visitor: InsertVisitor) => {
-    const response = await apiRequest('POST', '/api/visitors', visitor);
+    const response = await apiRequest('POST', '/.netlify/functions/visitors', visitor);
 
     if (!response.ok) {
       const text = await response.text();
