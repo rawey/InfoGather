@@ -1,43 +1,24 @@
 import type { Handler } from "@netlify/functions";
-import admin from "firebase-admin";
+import { db } from './_firebase';
 
-// 🔒 Safe Firebase Initialization
-let db: FirebaseFirestore.Firestore;
-
-try {
-  if (!admin.apps.length) {
-    admin.initializeApp({
-      credential: admin.credential.cert(
-        JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY!)
-      ),
-    });
-  }
-  db = admin.firestore();
-} catch (initError) {
-  console.error("Firebase init error:", initError);
-}
-
-// 🚀 Main Handler
 export const handler: Handler = async (event) => {
   try {
     if (!db) {
-      console.error("Firestore not initialized");
+      console.error("❌ Firebase not initialized");
       return {
         statusCode: 500,
         body: "Firebase initialization failed",
       };
     }
 
-    console.log("HTTP Method:", event.httpMethod);
-    console.log("Raw Body:", event.body);
-
     if (event.httpMethod === "GET") {
+      console.log("📍 Reading Firestore: settings/church");
       const doc = await db.collection("settings").doc("church").get();
       if (!doc.exists) {
-        console.log("No settings found");
+        console.warn("⚠️ Document not found: settings/church");
         return { statusCode: 404, body: "No settings found" };
       }
-      console.log("Settings retrieved:", doc.data());
+      console.log("✅ Document found:", doc.data());
       return {
         statusCode: 200,
         body: JSON.stringify(doc.data()),
@@ -46,19 +27,18 @@ export const handler: Handler = async (event) => {
 
     if (event.httpMethod === "POST") {
       const body = JSON.parse(event.body || "{}");
-      console.log("Parsed Body:", body);
+      console.log("📍 Writing to Firestore: settings/church with", body);
       await db.collection("settings").doc("church").set(body, { merge: true });
-      console.log("Settings updated");
+      console.log("✅ Settings updated");
       return {
         statusCode: 200,
         body: JSON.stringify({ message: "Settings updated" }),
       };
     }
 
-    console.log("Method not allowed");
     return { statusCode: 405, body: "Method not allowed" };
   } catch (err: any) {
-    console.error("Function error:", err);
+    console.error("🔥 Function error in church-settings:", err);
     return { statusCode: 500, body: err.message };
   }
 };

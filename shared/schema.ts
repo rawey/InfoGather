@@ -57,7 +57,9 @@ export const insertVisitorSchema = createInsertSchema(visitors).omit({
   phone: z.string().optional(),
   city: z.string().optional(),
   hearAbout: z.string().optional(),
-  isFirstTime: z.boolean().optional(),
+  isFirstTime: z.enum(["yes", "no"], {
+  required_error: "Please indicate if this is a first-time visitor"
+  }),
   notes: z.string().optional(),
 });
 

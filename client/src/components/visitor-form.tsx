@@ -15,6 +15,7 @@ import { insertVisitorSchema, type InsertVisitor } from "@shared/schema";
 import { useCreateVisitor } from "@/hooks/use-visitors";
 import { useToast } from "@/hooks/use-toast";
 import { t, type Language } from "@/lib/i18n";
+import { z } from "zod";
 
 interface VisitorFormProps {
   language: Language;
@@ -27,9 +28,14 @@ export function VisitorForm({ language, churchName }: VisitorFormProps) {
   const { toast } = useToast();
 
   const form = useForm<InsertVisitor>({
-    resolver: zodResolver(insertVisitorSchema.extend({
-      language: insertVisitorSchema.shape.language.default(language),
-    })),
+    resolver: zodResolver(
+      insertVisitorSchema.extend({
+        language: insertVisitorSchema.shape.language.default(language),
+        isFirstTime: z.enum(["yes", "no"], {
+          required_error: "Please indicate if this is a first-time visitor",
+        }),
+      })
+    ),
     defaultValues: {
       fullName: "",
       phone: "",
@@ -37,16 +43,22 @@ export function VisitorForm({ language, churchName }: VisitorFormProps) {
       ageGroup: undefined,
       city: "",
       hearAbout: "",
-      isFirstTime: false,
+      isFirstTime: undefined, // ✅ string now
       notes: "",
       language: language,
     },
     mode: "onChange",
   });
 
-  const onSubmit = async (data: InsertVisitor) => {
+  const onSubmit = async (data: any) => {
     try {
-      await createVisitor.mutateAsync({ ...data, language });
+      const payload: InsertVisitor = {
+        ...data,
+        isFirstTime: data.isFirstTime === "yes", // ✅ convert to boolean
+        language,
+      };
+
+      await createVisitor.mutateAsync(payload);
       setShowSuccess(true);
       form.reset();
     } catch (error) {
@@ -277,27 +289,46 @@ export function VisitorForm({ language, churchName }: VisitorFormProps) {
                       name="isFirstTime"
                       render={({ field }) => (
                         <FormItem>
-                          <label className="flex items-center p-4 bg-blue-50 border border-blue-200 rounded-xl min-h-[44px] cursor-pointer">
-                            <FormControl>
-                              <Checkbox
-                                checked={field.value || false}
-                                onCheckedChange={(checked) => {
-                                  field.onChange(checked === true);
-                                }}
-                                className="mr-3"
-                                data-testid="checkbox-first-time"
-                              />
-                            </FormControl>
-                            <span className="text-gray-700 font-medium" data-testid="text-first-time">
+                          <label className="flex flex-col p-4 bg-blue-50 border border-blue-200 rounded-xl min-h-[44px] cursor-pointer">
+                            <span className="text-gray-700 font-medium mb-2" data-testid="text-first-time">
                               {t('form.first_time', language)}
                             </span>
+                            <FormControl>
+                              <RadioGroup
+                                onValueChange={field.onChange}
+                                value={field.value}
+                                className="flex gap-6"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <RadioGroupItem
+                                    value="yes"
+                                    id="r1"
+                                    className="h-4 w-4 rounded-full border border-gray-300 data-[state=checked]:bg-blue-600"
+                                    data-testid="radio-yes"
+                                  />
+                                  <label htmlFor="r1" className="text-sm text-gray-700">
+                                    {t('form.yes', language)}
+                                  </label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <RadioGroupItem
+                                    value="no"
+                                    id="r2"
+                                    className="h-4 w-4 rounded-full border border-gray-300 data-[state=checked]:bg-blue-600"
+                                    data-testid="radio-no"
+                                  />
+                                  <label htmlFor="r2" className="text-sm text-gray-700">
+                                    {t('form.no', language)}
+                                  </label>
+                                </div>
+                              </RadioGroup>
+                            </FormControl>
                           </label>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  </div>
-                  
+                  </div>                  
                   {/* Notes */}
                   <div>
                     <FormField

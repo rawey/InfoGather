@@ -219,10 +219,10 @@ export function AdminPanel({ isOpen, onClose, language }: AdminPanelProps) {
 
           {/* Church Settings Tab */}
           <TabsContent value="settings" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-1 gap-4">
               
               {/* Church Branding Settings */}
-              <Card>
+              {/* <Card>
                 <CardHeader>
                   <CardTitle data-testid="text-church-branding">
                     {t('admin.church_branding', language)}
@@ -346,7 +346,7 @@ export function AdminPanel({ isOpen, onClose, language }: AdminPanelProps) {
                     </form>
                   </Form>
                 </CardContent>
-              </Card>
+              </Card> */}
               
               {/* Notification Settings */}
               <Card>

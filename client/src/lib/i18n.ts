@@ -41,6 +41,8 @@ export const translations = {
     'admin.recent_visitors': 'Recent Visitor Submissions',
     'admin.church_branding': 'Church Branding',
     'admin.notification_settings': 'Email Notifications',
+    'form.yes': 'Yes',
+    'form.no': 'No',
   },
   es: {
     'welcome.title': '¡Bienvenido a Nuestra Iglesia!',
@@ -82,6 +84,8 @@ export const translations = {
     'admin.recent_visitors': 'Envíos Recientes de Visitantes',
     'admin.church_branding': 'Marca de la Iglesia',
     'admin.notification_settings': 'Notificaciones por Correo',
+    'form.yes': 'Sí',
+    'form.no': 'No',
   }
 };
 
